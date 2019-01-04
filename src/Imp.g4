@@ -26,7 +26,7 @@ stmt:
 
 // <Block> ::= {} | { <Stmt> }
 block:
-    '{}'
+    '{' '}'
     | '{' stmt '}'
     ;
 
