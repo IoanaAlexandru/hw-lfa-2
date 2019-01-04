@@ -3,41 +3,39 @@
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.tree.*;
 
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-        if (args.length == 0) {
-            System.err.println("No file given");
-            return;
-        }
-
-        HelloLexer lexer = null;
+        ImpLexer lexer = null;
         CommonTokenStream tokenStream = null;
-        HelloParser parser = null;
+        ImpParser parser = null;
         ParserRuleContext globalTree = null;
 
         // True if any lexical or syntax errors occur.
         boolean lexicalSyntaxErrors = false;
 
         // Deschidem fisierul input pentru a incepe parsarea
-        String fileName = args[0];
-        CharStream input = CharStreams.fromFileName(fileName);
+        CharStream input = CharStreams.fromFileName("input");
 
         // Definim Lexer-ul
-        lexer = new HelloLexer(input);
+        lexer = new ImpLexer(input);
 
         // Obtinem tokenii din input
         tokenStream = new CommonTokenStream(lexer);
 
         // Definim Parser-ul
-        parser = new HelloParser(tokenStream);
+        parser = new ImpParser(tokenStream);
 
         // Incepem parsarea
-        ParserRuleContext tree = parser.main();
+        ParserRuleContext tree = parser.prog();
 
         // Vizitam AST-ul
-        MyVisitor visitor = new MyVisitor();
+        FileWriter file = new FileWriter(new File("arbore"));
+        MyVisitor visitor = new MyVisitor(file);
         visitor.visit(tree);
+        file.close();
     }
 }
