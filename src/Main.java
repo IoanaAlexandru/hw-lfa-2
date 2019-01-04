@@ -1,5 +1,3 @@
-// Multumim echipei de CPL pentru acest schelet Main
-
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.tree.*;
 
@@ -17,22 +15,22 @@ public class Main {
         // True if any lexical or syntax errors occur.
         boolean lexicalSyntaxErrors = false;
 
-        // Deschidem fisierul input pentru a incepe parsarea
+        // Open file to start parsing
         CharStream input = CharStreams.fromFileName("input");
 
-        // Definim Lexer-ul
+        // Defining lexer
         lexer = new ImpLexer(input);
 
-        // Obtinem tokenii din input
+        // Obtaining input tokens
         tokenStream = new CommonTokenStream(lexer);
 
-        // Definim Parser-ul
+        // Defining parser
         parser = new ImpParser(tokenStream);
 
-        // Incepem parsarea
+        // Start parsing
         ParserRuleContext tree = parser.prog();
 
-        // Vizitam AST-ul
+        // Visiting the AST
         FileWriter file = new FileWriter(new File("arbore"));
         MyVisitor visitor = new MyVisitor(file);
         visitor.visit(tree);
