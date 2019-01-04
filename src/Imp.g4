@@ -21,7 +21,7 @@ stmt:
     | stmtblock=block
     | 'if (' ifcondition=bexpr ')' ifblock=block 'else' elseblock=block
     | 'while (' whilecondition=bexpr ')' whileblock=block
-    | left=stmt right=stmt
+    | <assoc=right> left=stmt right=stmt
     ;
 
 // <Block> ::= {} | { <Stmt> }
@@ -56,7 +56,7 @@ aexpr:
     | aleft=aexpr '+' aright=aexpr
     ;
 
-WS : [ \t\r\n]+ -> skip;
-AVal : [0-9]+;
-BVal : 'true'|'false';
-Var : [a-z]+;
+WS: [ \t\r\n]+ -> skip;
+AVal: [0-9]+;
+BVal: 'true'|'false';
+Var: [a-z]+;
